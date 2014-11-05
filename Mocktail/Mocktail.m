@@ -97,12 +97,13 @@ static NSMutableSet *_allMocktails;
     return mockResponses;
 }
 
-+ (MocktailResponse *)mockResponseForURL:(NSURL *)url method:(NSString *)method;
++ (MocktailResponse *)mockResponseForURL:(NSURL *)url method:(NSString *)method requestBody:(NSString *)requestBody;
 {
     NSAssert(url && method, @"Expected a valid URL and method.");
 
     MocktailResponse *matchingResponse = nil;
     NSUInteger matchingRegexLength = 0;
+    NSUInteger matchingBodyRegexLength = 0;
 
     NSString *absoluteURL = [url absoluteString];
     for (Mocktail *mocktail in [Mocktail allMocktails]) {
@@ -110,8 +111,13 @@ static NSMutableSet *_allMocktails;
             if ([response.absoluteURLRegex numberOfMatchesInString:absoluteURL options:0 range:NSMakeRange(0, absoluteURL.length)] > 0) {
                 if ([response.methodRegex numberOfMatchesInString:method options:0 range:NSMakeRange(0, method.length)] > 0) {
                     if (response.absoluteURLRegex.pattern.length > matchingRegexLength) {
-                        matchingResponse = response;
-                        matchingRegexLength = response.absoluteURLRegex.pattern.length;
+                        if (response.requestBodyRegex == nil ||
+                            (([response.requestBodyRegex numberOfMatchesInString:requestBody options:0 range:NSMakeRange(0, requestBody.length)] > 0) &&
+                             response.requestBodyRegex.pattern.length > matchingBodyRegexLength)) {
+                                matchingResponse = response;
+                                matchingRegexLength = response.absoluteURLRegex.pattern.length;
+                                matchingBodyRegexLength = response.requestBodyRegex.pattern.length;
+                        }
                     }
                 }
             }

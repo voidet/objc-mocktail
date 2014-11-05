@@ -16,7 +16,7 @@
 
 @interface Mocktail (Private)
 
-+ (MocktailResponse *)mockResponseForURL:(NSURL *)url method:(NSString *)method;
++ (MocktailResponse *)mockResponseForURL:(NSURL *)url method:(NSString *)method requestBody:(NSString *)requestBody;
 
 - (NSDictionary *)placeholderValues;
 
