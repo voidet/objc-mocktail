@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) NSRegularExpression *methodRegex;
 @property (nonatomic, strong) NSRegularExpression *absoluteURLRegex;
+@property (nonatomic, strong) NSRegularExpression *requestBodyRegex;
 @property (nonatomic, strong) NSURL *fileURL;
 @property (nonatomic) NSInteger bodyOffset;
 @property (nonatomic, strong) NSDictionary *headers;

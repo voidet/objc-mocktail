@@ -180,7 +180,7 @@ static NSMutableSet *_allMocktails;
     NSString *headerMatter = nil;
     [scanner scanUpToString:@"\n\n" intoString:&headerMatter];
     NSArray *lines = [headerMatter componentsSeparatedByString:@"\n"];
-    if ([lines count] < 4) {
+    if ([lines count] < 5) {
         NSLog(@"Invalid amount of lines: %u", (unsigned)[lines count]);
         return;
     }
@@ -189,9 +189,13 @@ static NSMutableSet *_allMocktails;
     response.mocktail = self;
     response.methodRegex = [NSRegularExpression regularExpressionWithPattern:lines[0] options:NSRegularExpressionCaseInsensitive error:nil];
     response.absoluteURLRegex = [NSRegularExpression regularExpressionWithPattern:lines[1] options:NSRegularExpressionCaseInsensitive error:nil];
-    response.statusCode = [lines[2] integerValue];
+    if (lines[2])
+    {
+        response.requestBodyRegex = [NSRegularExpression regularExpressionWithPattern:lines[2] options:NSRegularExpressionCaseInsensitive error:nil];
+    }
+    response.statusCode = [lines[3] integerValue];
     NSMutableDictionary *headers = [[NSMutableDictionary alloc] init];
-    for (NSString *line in [lines subarrayWithRange:NSMakeRange(3, lines.count - 3)]) {
+    for (NSString *line in [lines subarrayWithRange:NSMakeRange(4, lines.count - 4)]) {
         NSArray* parts = [line componentsSeparatedByString:@":"];
         [headers setObject:[[parts lastObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                     forKey:[parts firstObject]];
