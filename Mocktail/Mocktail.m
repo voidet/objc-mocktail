@@ -105,7 +105,7 @@ static NSMutableSet *_allMocktails;
     NSUInteger matchingRegexLength = 0;
     NSUInteger matchingBodyRegexLength = 0;
     
-    NSString *requestBodyString = [requestBody base64EncodedStringWithOptions:0];
+    NSString *requestBodyString = [[[NSString alloc] initWithData:requestBody encoding:NSUTF8StringEncoding] stringByRemovingPercentEncoding];
 
     NSString *absoluteURL = [url absoluteString];
     for (Mocktail *mocktail in [Mocktail allMocktails]) {
