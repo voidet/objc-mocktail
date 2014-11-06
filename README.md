@@ -35,6 +35,8 @@ So we made one up. It's newline-delimited.
 
 **Line 2** is a regular expression that matches the full URL of the HTTP request. So something like `http://yourserver.com:1234/very/specific/path\?param1=value1` or maybe just `/partial/path/to/something/.*` is fine too. It's possible to have more than one regular expression match the full URL (like http://yourserver.com:1234/path for a specific path and /.* to match everything else). If that happens, the longest regular expression is the one that matches.
 
+**Line 3** is a regular expression that matches the body of a POST request. This allows for matching against particular parameters sent in the request, e.g. - 'foo=bar'. This follows similar rules to the prior line, where the longest matching regular expresion wins.
+
 **Line 3** is the HTTP status code of the response. Probably `200`.
 
 **From line 4 until a blank line** is a set of raw HTTP response headers. For example, to set a cookie named `auth_token` use `Set-Cookie: auth_token=42` and to give the HTTP/MIME type of the content use `Content-Type: application/json; charset=utf-8` or `Content-Type: text/html`. If you want to send back binary data, your best bet is to suffix the Content-Type header with `;base64` and then to Base64-encode the response body. Each header should go into its own line and the section ends with a blank line.
