@@ -24,8 +24,7 @@
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request;
 {
-    NSString *requestBody = [[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] stringByRemovingPercentEncoding];
-    return !![Mocktail mockResponseForURL:request.URL method:request.HTTPMethod requestBody:requestBody];
+    return !![Mocktail mockResponseForURL:request.URL method:request.HTTPMethod requestBody:request.HTTPBody];
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request;
@@ -42,8 +41,7 @@
 {
     NSLog(@"mocking %@ %@", self.request.URL, self.request.HTTPMethod);
     
-    NSString *requestBody = [[[NSString alloc] initWithData:self.request.HTTPBody encoding:NSUTF8StringEncoding] stringByRemovingPercentEncoding];
-    MocktailResponse *response = [Mocktail mockResponseForURL:self.request.URL method:self.request.HTTPMethod requestBody:requestBody];
+    MocktailResponse *response = [Mocktail mockResponseForURL:self.request.URL method:self.request.HTTPMethod requestBody:self.request.HTTPBody];
     Mocktail *mocktail = response.mocktail;
     NSAssert(response, @"Expected valid mock response");
     NSData *body = [NSData dataWithContentsOfURL:response.fileURL];
