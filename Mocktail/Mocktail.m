@@ -197,7 +197,7 @@ static NSMutableSet *_allMocktails;
     response.mocktail = self;
     response.methodRegex = [NSRegularExpression regularExpressionWithPattern:lines[0] options:NSRegularExpressionCaseInsensitive error:nil];
     response.absoluteURLRegex = [NSRegularExpression regularExpressionWithPattern:lines[1] options:NSRegularExpressionCaseInsensitive error:nil];
-    if (lines[2])
+    if (![lines[2] isEqualToString:@"*"])
     {
         response.requestBodyRegex = [NSRegularExpression regularExpressionWithPattern:lines[2] options:NSRegularExpressionCaseInsensitive error:nil];
     }
