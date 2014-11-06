@@ -114,7 +114,7 @@ static NSMutableSet *_allMocktails;
                 if ([response.methodRegex numberOfMatchesInString:method options:0 range:NSMakeRange(0, method.length)] > 0) {
                     if (response.absoluteURLRegex.pattern.length > matchingRegexLength) {
                         if (response.requestBodyRegex == nil ||
-                            (([response.requestBodyRegex numberOfMatchesInString:requestBodyString options:0 range:NSMakeRange(0, requestBody.length)] > 0) &&
+                            (([response.requestBodyRegex numberOfMatchesInString:requestBodyString options:0 range:NSMakeRange(0, requestBodyString.length)] > 0) &&
                              response.requestBodyRegex.pattern.length > matchingBodyRegexLength)) {
                                 matchingResponse = response;
                                 matchingRegexLength = response.absoluteURLRegex.pattern.length;
