@@ -42,6 +42,12 @@
     NSLog(@"mocking %@ %@", self.request.URL, self.request.HTTPMethod);
     
     MocktailResponse *response = [Mocktail mockResponseForURL:self.request.URL method:self.request.HTTPMethod requestBody:self.request.HTTPBody];
+    
+    if (response)
+    {
+        NSLog(@"Found mock: \n%@\n%@\n%@\n%@\n", [response.fileURL lastPathComponent], response.methodRegex, response.absoluteURLRegex, response.requestBodyRegex);
+    }
+    
     Mocktail *mocktail = response.mocktail;
     NSAssert(response, @"Expected valid mock response");
     NSData *body = [NSData dataWithContentsOfURL:response.fileURL];
