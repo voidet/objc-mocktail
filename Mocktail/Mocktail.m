@@ -112,10 +112,10 @@ static NSMutableSet *_allMocktails;
         for (MocktailResponse *response in mocktail.mockResponses) {
             if ([response.absoluteURLRegex numberOfMatchesInString:absoluteURL options:0 range:NSMakeRange(0, absoluteURL.length)] > 0) {
                 if ([response.methodRegex numberOfMatchesInString:method options:0 range:NSMakeRange(0, method.length)] > 0) {
-                    if (response.absoluteURLRegex.pattern.length > matchingRegexLength) {
-                        if (response.requestBodyRegex == nil ||
+                    if (response.absoluteURLRegex.pattern.length >= matchingRegexLength) {
+                        if ((response.requestBodyRegex == nil && matchingBodyRegexLength == 0) ||
                             (([response.requestBodyRegex numberOfMatchesInString:requestBodyString options:0 range:NSMakeRange(0, requestBodyString.length)] > 0) &&
-                             response.requestBodyRegex.pattern.length > matchingBodyRegexLength)) {
+                             response.requestBodyRegex.pattern.length >= matchingBodyRegexLength)) {
                                 matchingResponse = response;
                                 matchingRegexLength = response.absoluteURLRegex.pattern.length;
                                 matchingBodyRegexLength = response.requestBodyRegex.pattern.length;
