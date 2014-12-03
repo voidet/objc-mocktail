@@ -12,4 +12,16 @@
 
 
 @implementation MocktailResponse
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@> {\n\tfile = %@ \n\tmethod = %@\n\t url = %@\n\t body = %@\n}",
+            NSStringFromClass([self class]),
+            [self fileURL],
+            [self methodRegex],
+            [self absoluteURLRegex],
+            [self requestBodyRegex]];
+}
+
 @end
+
