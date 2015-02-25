@@ -32,6 +32,12 @@
  */
 @property (nonatomic, assign) NSTimeInterval networkDelay;
 
+/** Hint to specify the scenario directory to look at.
+ 
+ Default value is nil
+ */
+@property (nonatomic, strong) NSString* scenarioHint;
+
 /** @name Placeholder Support */
 
 /** Returns the placeholder value for a given key
