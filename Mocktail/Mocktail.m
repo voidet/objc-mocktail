@@ -100,7 +100,10 @@ static NSMutableSet *_allMocktails;
     return mockResponses;
 }
 
-- (NSSet*) responsesForTag:(NSString*)tag
+/**
+ * Find the set of responses that correspond to a tag (folder/directory label)
+ */
+- (NSSet *)responsesForTag:(NSString*)tag
 {
     NSSet *mockResponses;
     @synchronized (_mutableMockResponsesInFolders) {
@@ -112,7 +115,10 @@ static NSMutableSet *_allMocktails;
     return mockResponses;
 }
 
-- (NSArray*) tagsMatchingQuery:(NSDictionary*)queries
+/**
+ * Find the tags (folder/directory label) that are relevant to a parsed query string
+ */
+- (NSArray *)tagsMatchingQuery:(NSDictionary*)queries
 {
     NSMutableArray* matchedTags = [NSMutableArray array];
     @synchronized (_mutableMockResponsesInFolders) {
@@ -132,7 +138,10 @@ static NSMutableSet *_allMocktails;
     }];;
 }
 
-- (NSDictionary*)matchQuery:(NSDictionary*)queries withTag:(NSString*)tag
+/**
+ * Calculate number of matches for a given tag (folder/directory label). This will yield {num_matches:<number>,tag:<tag>}, where 'num_matches' acts as the goodness value
+ */
+- (NSDictionary *)matchQuery:(NSDictionary*)queries withTag:(NSString*)tag
 {
     int matches = 0;
     for (NSString* keyString in queries.keyEnumerator)
@@ -229,6 +238,9 @@ static NSMutableSet *_allMocktails;
     return [Mocktail mostMatchingResponseInSet:rootSet forAbsoluteURLString:absoluteURL method:method requestBodyString:requestBodyString];
 }
 
+/**
+ Utility function to find the most the most matching request, given request URL and request body, from a set of eligible responses
+ */
 + (MocktailResponse *)mostMatchingResponseInSet:(NSSet*)set forAbsoluteURLString:(NSString *)absoluteURL method:(NSString *)method requestBodyString:(NSString *)requestBodyString
 {
     MocktailResponse *matchingResponse = nil;
