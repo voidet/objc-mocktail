@@ -140,8 +140,8 @@ static NSMutableSet *_allMocktails;
         NSString* val = queries[keyString];
         NSString* constructedTag = [NSString stringWithFormat:@"%@-%@/", [keyString lowercaseString], [val lowercaseString]];
         NSString* keySubTag = [NSString stringWithFormat:@"%@-", [keyString lowercaseString]];
-        BOOL matchKey = [tag containsString:keySubTag];
-        BOOL matchAll = [tag containsString:constructedTag];
+        BOOL matchKey = [keySubTag containsString:tag];
+        BOOL matchAll = [constructedTag containsString:tag];
         if (matchAll)
         {
             matches++;
